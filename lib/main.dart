@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(AnimatedDots());
+void main() {
+  print(CustomCurve().transformInternal(.35));
+//  runApp(AnimatedDots());
+}
 
 class AnimatedDots extends StatefulWidget {
   @override
@@ -14,9 +17,17 @@ class _AnimatedDotsState extends State<AnimatedDots> {
   }
 }
 
-class CustomCurve extends Curve{
+class CustomCurve extends Curve {
   @override
   double transformInternal(double t) {
-    return 0.0;
+    if (t > .2 && t <= .4) {
+      return Curves.ease.transform((t-.2)*5);
+    }
+    if (t > .4 && t <.6) {
+      print(1-((t-.4)*5));
+      return Curves.decelerate.transform(1-((t-.4)*5));
+    } else {
+      return 0.0;
+    }
   }
 }
